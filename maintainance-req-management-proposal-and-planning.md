@@ -1,68 +1,69 @@
 # PA#1 — Maintenance Request Management
 
-**Team:** Three members · **Planning starts:** 7 October 2026  
-**Project repository:** [INSERT YOUR GIT REPOSITORY URL HERE]
+**Planning period:** 7 October–23 December 2026  
+**Repository:** [PA Maintenance Request Management Project](https://github.com/PeriodicallyZoneOut/PA.git)
 
-| Member | Student ID | Primary responsibility |
+| Team member | Student ID | Responsibility |
 |---|---|---|
-| Nguyễn Minh Tú | 23120101 | Product validation, backend/database and release integration |
-| [Member 2 — full name] | [Student ID] | Frontend, user workflows and usability testing |
-| [Member 3 — full name] | [Student ID] | LLM integration, evaluation dataset and model testing |
+| Nguyễn Minh Tú | 23120101 | User validation, backend/database, release integration |
+| Huỳnh Mạnh Tường | 23120105 | Frontend, user workflows, usability testing |
+| Phạm Quốc Nam Anh | 23120111 | LLM integration, evaluation data, model testing |
 
-## 1. Problem and users
+## 1. Product, users and problem
 
-**Problem:** Residents and building managers need one place to report, triage and track maintenance requests because scattered messages make responsibility and progress difficult to follow.
+**Problem:** In one apartment building, scattered maintenance messages make it difficult for residents to track progress and for the manager to track responsibility.
 
-The setting is one apartment building. Illustrative users are **Minh**, reporting a leaking sink; **Lan**, the manager reviewing and assigning reports; and **Hùng**, the technician recording repairs. The assumed workaround is phone/Zalo messages plus a spreadsheet, leaving residents asking for updates and managers manually tracking ownership. These hypotheses will be checked in interviews, not presented as established findings.
+Illustrative users are **Minh**, reporting a leaking sink; **Lan**, the manager reviewing reports; and **Hùng**, the technician completing repairs. Their assumed workaround is phone/Zalo messages plus a spreadsheet. Interviews with one manager and two residents will validate this assumption; no interview findings are claimed yet.
 
-The workflow is **submit → manager review → assign → work/comments → resolved**, with requests to reopen. Success means traceable ownership and status, targeting 30% lower median triage time without increasing critical errors in the evaluation.
+The web app provides **submit → review → assign → work/comments → resolve**, with manager-approved reopening. Its value is a shared record of ownership, progress and decisions. The target is 30% lower median triage time with AI assistance, without increasing critical errors in the pilot.
 
-## 2. LLM feature and cost of being wrong
+## 2. One LLM feature and the cost of being wrong
 
-**One feature:** Interpret Vietnamese/English descriptions into suggested **category, urgency and service team**, with a short explanation. Categories cover plumbing, electrical, HVAC, building/general and other; urgency is low, normal, high or immediate human review. Ambiguity requires manual review. Compare against keyword rules to test whether language interpretation adds value.
+**Assisted triage:** Interpret Vietnamese/English descriptions into suggested category, urgency and service team, with a short explanation. Categories cover plumbing, electrical, HVAC, building/general and other. Unclear reports require manual review. Compare against keyword rules to establish whether language interpretation adds value.
 
-The manager sees the original text, confirms or overrides suggestions and selects a technician. Only the saved human decision becomes operational; the LLM has no workflow-changing permissions. Overrides retain the suggestion, decision and reason.
+The manager sees the original text and approves or corrects suggestions before selecting a technician. The model cannot assign work or change statuses; the system records suggestions, final decisions and override reasons.
 
-**Emergency boundary:** This is not emergency dispatch. The reporting screen directs immediate danger to configured emergency contacts. A danger checkbox and independent text rules flag reports such as “Strong gas smell in kitchen”; model suggestions cannot remove the warning. All unreviewed requests stay visible, with flags highlighted. Missing keywords do not establish safety, and manager review cannot guarantee an immediate response.
+**Error costs:** Wrong routing may waste an estimated 30–60 minutes or one visit; reassignment corrects the route but cannot recover that time. Excessive urgency diverts staff attention; understated urgency delays residents' repairs. A missed dangerous report can contribute to irreversible harm. These are scenarios to validate, not measured outcomes.
 
-**Wrong-output costs:** A wrong team may waste 30–60 minutes or one visit; excessive urgency consumes staff attention; understated urgency delays residents' repairs. These are estimates to validate. Reassignment corrects routing but cannot recover lost time. A missed dangerous report may contribute to irreversible injury or property damage; manager override alone is insufficient protection.
+**Emergency boundary:** The app is not emergency dispatch. Show configured emergency contacts; a resident danger checkbox and independent text rules flag reports such as “Strong gas smell in kitchen.” Model output cannot remove warnings. All unreviewed requests remain visible. Neither missing keywords nor manager review guarantees safety or immediate response.
 
-**Evaluation:** Label 120 synthetic/deidentified reports: 80 development and 40 locked test cases, including 10 critical cases in the test set. Cover Vietnamese/English, ambiguity and malicious instructions; seek independent label review and disclose its absence. Target ≥85% accuracy separately for category/routing and urgency macro-F1 ≥0.85. Measure raw-model under-triage separately; all critical test cases must trigger application-level immediate review. Critical misses block enabling suggestions. After test-driven fixes, use fresh unseen cases rather than claiming the old set remains held out. Pilot manual versus assisted triage using comparable, nonrepeated cases and counterbalanced order; report timing, errors and participant limits. Investigate overrides rather than treating them as ground truth. Passing a small test does not establish operational safety.
+**Evaluation:** Prepare 120 labeled reports: 80 development and 40 locked test cases, including 10 critical test cases. Seek independent label review. Target ≥85% category and routing accuracy separately and urgency macro-F1 ≥0.85. Report raw-model errors separately from application safeguards; every critical test case must enter immediate human review. Critical misses block enabling suggestions. Use fresh unseen cases after test-driven fixes. Compare manual/assisted review on matched, nonrepeated cases with counterbalanced order; report timing, errors and participant limitations. Overrides prompt investigation, not automatic relabeling.
 
 ## 3. Semester scope
 
-**In:** One building; authenticated resident, manager and technician roles; request creation, viewing and edits before assignment; optional image attachments; manager review, assignment/reassignment; comments; status history; resolution and manager-approved reopening; workload/status dashboard; advisory LLM triage. Residents access their own requests, technicians their assignments, and managers all building requests. Server authorization applies to images too. Requests are archived rather than erasing their audit history.
+**In:** One building; resident/manager/technician authentication and server-side authorization; requests with private images; manager review and assignment/reassignment; comments; status history; resolution/reopening; basic workload dashboard; advisory triage. Residents see their own requests, technicians their assignments, managers all building requests. Archive requests without deleting history. Save submissions even when AI fails; use manual review on timeout, invalid output or budget exhaustion.
 
-**Out:** Autonomous emergency response, automatic assignment, image diagnosis, payments, inventory, contractor procurement, predictive maintenance, multiple buildings, native mobile apps and 24/7 operational guarantees. The semester deliverable is a reproducible demonstration, not a live emergency service.
+**Out:** Autonomous emergency response, automatic dispatch, image diagnosis, payments, inventory, procurement, multiple buildings, native mobile apps and 24/7 service guarantees. Deliver a reproducible local demonstration. Prioritize the complete manual workflow and evaluated triage over dashboard polish.
 
-## 4. Plan, checkpoints and ownership
+## 4. Six-checkpoint plan and ownership
 
-The plan starts **7 October 2026**. Dates below are proposed completion targets, not verified course deadlines; align them with the official calendar when available. Each checkpoint has one accountable owner, supported by the others in their roles above. Replace Member 2/3 with their full names before submission to meet the rubric's named-owner requirement. Detailed feature specifications come after idea validation, not with this proposal.
+Work starts **7 October 2026**. Dates are proposed internal completion targets; official calendar compatibility remains to be confirmed. Owners coordinate contributions from all three roles. Detailed specifications follow idea validation.
 
-| Checkpoint | Date (2026) | Deliverable and completion evidence | Owner |
+| Checkpoint | Due (2026) | Deliverable / exit evidence | Accountable owner |
 |---|---|---|---|
-| 1 — Validate and plan | 14 Oct | Seek one manager/two resident interviews; record access limits; define labels, scope and backlog | Nguyễn Minh Tú |
-| 2 — Feasibility and core | 28 Oct | After validation: core-feature spec, keyword/LLM trial; team demonstrates schema, roles, requests and private images | [Member 3 — full name] |
-| 3 — Maintenance lifecycle | 11 Nov | Assignments, comments, history, reopening and dashboard; demonstrate complete manual workflow | [Member 2 — full name] |
-| 4 — AI integration | 25 Nov | Advisory suggestions, validation, danger flags, manual fallback and override audit; development-set results | [Member 3 — full name] |
-| 5 — Evaluation | 9 Dec | Locked-test results, timed comparison, permission/concurrency/failure tests; prioritize fixes | [Member 2 — full name] |
-| 6 — Release | 23 Dec | Fix critical defects; reproducible setup, demo, evaluation limitations and final documentation | Nguyễn Minh Tú |
+| 1 — Validate | 14 Oct | Interview findings or access limits; scope, labels, backlog and repository setup | Nguyễn Minh Tú |
+| 2 — Prove feasibility | 28 Oct | Later feature spec; keyword/LLM trial; working authenticated request submission with private images | Phạm Quốc Nam Anh |
+| 3 — Manual workflow | 11 Nov | Demonstrate assignment, comments, history, resolution/reopening and dashboard | Huỳnh Mạnh Tường |
+| 4 — Integrate AI | 25 Nov | Reviewed suggestions, warnings, override audit and outage fallback; development results | Phạm Quốc Nam Anh |
+| 5 — Evaluate | 9 Dec | Locked-test metrics, timed pilot, authorization/concurrency/failure tests; prioritized fixes | Huỳnh Mạnh Tường |
+| 6 — Release | 23 Dec | Critical fixes; fresh-clone setup, seeded demo, evaluation report and final documentation | Nguyễn Minh Tú |
 
 ## 5. Two project-threatening risks
 
-1. **Unsafe triage or excessive trust in AI.** Starting 7–13 October, Member 3 drafts the emergency policy and collects 20 danger/ambiguous examples; Member 2 prototypes the independent warning and review screen. Evaluate model errors and safeguard failures; disable suggestions if critical failures persist. Manual processing remains available.
-2. **Insufficient access to users and realistic labels.** Starting 7–13 October, Nguyễn Minh Tú invites one manager and two residents to review the workflow and requests anonymized examples with permission. If access fails, use documented synthetic cases and peer review, narrow claims to a prototype, and report missing operational validation.
+1. **Unsafe or unhelpful triage:** During 7–13 October, Nam Anh prepares 20 danger/ambiguous cases and a label policy; Tường prototypes warnings and mandatory review. Test safeguards separately from model accuracy. Persistent critical misses disable suggestions and require reporting that the AI objective was not achieved.
+2. **No realistic users or labels:** During 7–13 October, Tú invites one manager/two residents and requests permitted anonymized examples. If unavailable by checkpoint 1, use documented synthetic cases and peer review, limit claims to a prototype and record missing operational validation.
 
-## 6. Technology choices and budget
+## 6. Technology and operating budget
 
-| Choice | Project-specific reason |
+| Choice | Project-specific justification |
 |---|---|
-| React + Vite + Tailwind CSS | Shared forms and role-specific dashboards keep the three user workflows manageable. |
-| Node.js + Express | Centralizes authorization, workflow transitions and server-only model calls. |
-| PostgreSQL + Prisma | Relational assignments and transactions keep status changes and audit entries consistent. |
-| Private filesystem storage + Docker Compose | Supports authenticated image retrieval and a reproducible local demonstration without a paid storage dependency. |
-| OpenAI GPT-4.1 mini, snapshot `gpt-4.1-mini-2025-04-14` | A provisional baseline for short classification, supporting schema-constrained output; retain it only if evaluation passes. |
+| React, TypeScript, Vite, Tailwind CSS | Shared forms and typed role-specific workflows |
+| Node.js, Express, TypeScript | Centralized permissions, transitions and server-only model calls |
+| PostgreSQL, Prisma | Relational assignments and transactional history updates |
+| Private file storage, Docker Compose | Protected attachments and reproducible local setup |
+| Vitest, Playwright | Business-rule checks and complete role-based workflow tests |
+| OpenAI GPT-4.1 mini, pinned snapshot `gpt-4.1-mini-2025-04-14` | Provisional structured-output baseline, retained only if evaluation supports it |
 
-Save requests before calling the model. Validate output against allowed values; timeout, refusal, invalid output or budget exhaustion produces “manual review required.” Treat descriptions as untrusted data. Send description text only, excluding images and structured identity/location fields. Use synthetic or deidentified demo data; typed personal information requires review/redaction before API submission. Keep API keys on the server.
+Send deidentified description text only, excluding images and identity/location fields; review typed personal data before API submission. Validate model output and keep credentials server-side.
 
-Budget uses rates checked on **6 October 2026**: **$0.40/million input tokens, $1.60/million output tokens** ([OpenAI documentation](https://developers.openai.com/api/docs/models/gpt-4.1-mini)). At 1,000 input + 200 output tokens, a call costs **$0.00072**; 10,000 calls cost **$7.20**, or **$14.40** with a 2× testing/retry allowance. Reserve **$20**, excluding taxes/hosting; meter usage and stop calls at the application budget limit, falling back to manual review. Recheck rates before implementation. The reproducible local demo needs no paid cloud hosting.
+Rates checked **6 October 2026**: $0.40/M input and $1.60/M output tokens ([source](https://developers.openai.com/api/docs/models/gpt-4.1-mini)). At 1,000 input + 200 output tokens, 10,000 calls cost **$7.20**, or **$14.40** with a 2× testing/retry allowance. Reserve **$20**, excluding taxes/hosting; enforce a usage cutoff and manual fallback. Recheck prices before implementation. The local demo requires no paid cloud hosting.

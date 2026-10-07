@@ -71,3 +71,27 @@ Changed: Added two full-name/student-ID placeholders and distinct responsibiliti
 Rejected: Inventing teammate identities or claiming that proposed dates match the official course calendar.
 
 By hand: The student confirmed a three-person team and authorized date assumptions. Teammate names/IDs and repository URL still require completion; the official calendar and two-page layout remain unverified. No PDF was rendered, and the root AI log was not changed.
+
+## 2026-10-07 — Confirm teammate identities
+
+Tool: OpenAI Codex.
+
+Asked for: Add Huỳnh Mạnh Tường (23120105) and Phạm Quốc Nam Anh (23120111) to `PA/maintainance-req-management-proposal-and-planning.md`.
+
+Changed: Replaced member placeholders in the team table, checkpoint ownership and risk mitigations; removed the obsolete instruction to fill names. Preserved the repository placeholder because no URL was supplied.
+
+By hand: The student supplied both names and IDs and specified the current proposal path. The assistant retained the proposed role allocation. No root AI log was modified.
+
+## 2026-10-07 — Complete proposal content and detailed team planning
+
+Tool: OpenAI Codex.
+
+Asked for: Complete the project proposal and plan after the student supplied the repository link.
+
+Kept: The supplied repository URL, three confirmed members, six internal checkpoint dates and advisory maintenance triage feature.
+
+Changed: Reorganized the PA proposal around the six rubric sections and created `maintenance-management-project-plan.md` as a separate working companion. Expanded ownership, priorities, architecture, dependencies, evaluation protocol, quality gates, risk responses and final deliverables. Added TypeScript and testing-tool choices with project reasons. Verified team IDs, repository preservation, section count, absence of placeholders and API budget arithmetic. Prices remain the estimate verified on 6 October; the repository implementation was not inspected.
+
+Rejected: Appending the full execution plan to the two-page submission, claiming completed validation, or treating internally proposed dates as confirmed course deadlines.
+
+By hand: The student supplied the repository link and requested fuller planning. New planning details are assistant-authored proposals for team review. The main proposal is 1,006 words; final two-page layout is not verified. No PDF rendering, remote writes, commits or root AI-log changes were made.
